@@ -150,7 +150,7 @@ function updateUnifiedHUD(satBody, isPaused, cameraSystem, fineControlMode, isDo
   
   // Update velocity info
   if (uiElements.velocityInfo) {
-    uiElements.velocityInfo.textContent = `X: ${v.x.toFixed(2)} Y: ${v.y.toFixed(2)} Z: ${v.z.toFixed(2)}`;
+    uiElements.velocityInfo.textContent = `X: ${v.x.toFixed(10)} Y: ${v.y.toFixed(10)} Z: ${v.z.toFixed(10)}`;
   }
   
   // Update angular velocity info
@@ -406,3 +406,4 @@ export function updateUIText(elementId, text) {
     element.textContent = text;
   }
 }
+
