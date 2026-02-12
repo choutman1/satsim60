@@ -78,14 +78,14 @@ function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, cr
     let thrust = parseFloat(t.thrust);
     if (isNaN(thrust) || thrust <= 0) {
       console.warn(`Invalid thrust value for thruster "${t.name || i}": ${t.thrust}. Defaulting to 50N.`);
-      thrust = 50;
+      thrust = 0.5;
     }
 
     // Sanitize ISP value
     let isp = parseFloat(t.isp);
     if (isNaN(isp) || isp <= 0) {
       console.warn(`Invalid ISP value for thruster "${t.name || i}": ${t.isp}. Defaulting to 300s.`);
-      isp = 300;
+      isp = 70;
     }
     // --- END SANITIZATION ---
 
@@ -140,3 +140,4 @@ function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, cr
 
   return thrusters;
 }
+
