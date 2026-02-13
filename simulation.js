@@ -835,7 +835,7 @@ function createDockingPort(geometry) {
         }
       });
       
-      world.step(1/170);
+      world.step(1/60);
     }
 
     if (getSpacecraftBody()) {
@@ -923,7 +923,10 @@ function createDockingPort(geometry) {
   });
 
   // Export current position and orientation to JSON file
-  window.addEventListener('exportPosition', () => {
+  const copyButton = document.getElementById('export-position-button');
+  const positionElement = document.getElementById('position-info');
+  const velocityElement = document.getElementById('velocity-info');
+  window.addEventListener('exportPosition', async  () => {
     if (!satBody) {
       console.error('Spacecraft body not available for export');
       alert('Spacecraft not loaded yet');
@@ -945,25 +948,66 @@ function createDockingPort(geometry) {
       dockingBoxSize: DOCKING_BOX_SIZE,
       dockingAngleThreshold: DOCKING_ANGLE_THRESHOLD
     };
-
-    // Create a blob and download the file
-    const dataStr = JSON.stringify(positionData, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'spacecraft_position.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
+    try {
+        await navigator.clipboard.writeText(positionElement.textContent+velocityElement.textContent);
+        console.log('Text copied to clipboard successfully!');
+        // Optional: Provide visual feedback to the user
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => {
+            copyButton.textContent = 'Export Current Position & Orientation';
+        }, 1500);
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+    }
     console.log('Exported position/orientation:', positionData);
   });
+  
+  // // Export current position and orientation to JSON file
+  // window.addEventListener('exportPosition', () => {
+  //   if (!satBody) {
+  //     console.error('Spacecraft body not available for export');
+  //     alert('Spacecraft not loaded yet');
+  //     return;
+  //   }
 
+  //   const positionData = {
+  //     position: {
+  //       x: satBody.position.x,
+  //       y: satBody.position.y,
+  //       z: satBody.position.z
+  //     },
+  //     orientation: {
+  //       x: satBody.quaternion.x,
+  //       y: satBody.quaternion.y,
+  //       z: satBody.quaternion.z,
+  //       w: satBody.quaternion.w
+  //     },
+  //     dockingBoxSize: DOCKING_BOX_SIZE,
+  //     dockingAngleThreshold: DOCKING_ANGLE_THRESHOLD
+  //   };
+
+  //   // Create a blob and download the file
+  //   const dataStr = JSON.stringify(positionData, null, 2);
+  //   const blob = new Blob([dataStr], { type: 'application/json' });
+  //   const url = URL.createObjectURL(blob);
+    
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'spacecraft_position.json';
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+    
+  //   console.log('Exported position/orientation:', positionData);
+  // });
   initializeDefaultSpacecraft();
 }
+
+
+
+
+
 
 
 
