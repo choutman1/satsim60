@@ -976,7 +976,7 @@ function createDockingPort(geometry) {
     }
   
     const positionData = {
-      positionElement.textContent+velocityElement.textContent+anglerateElement.textContent+angleElement.textContent
+      pos: {positionElement.textContent+velocityElement.textContent+anglerateElement.textContent+angleElement.textContent};
     };
   
     // Create a blob and download the file
@@ -996,6 +996,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
