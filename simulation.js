@@ -996,7 +996,7 @@ function createDockingPort(geometry) {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'spacecraft_position.json';
-    // document.body.appendChild(a);
+    document.body.appendChild(a);
     // a.click();
     // document.body.removeChild(a);
     // URL.revokeObjectURL(url);
@@ -1005,6 +1005,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
