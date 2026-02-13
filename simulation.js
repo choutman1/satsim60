@@ -835,7 +835,7 @@ function createDockingPort(geometry) {
         }
       });
       
-      world.step(1/170);
+      world.step(1/60);
     }
 
     if (getSpacecraftBody()) {
@@ -1000,6 +1000,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
