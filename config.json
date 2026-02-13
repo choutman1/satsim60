@@ -1,141 +1,400 @@
 {
+  "spacecraftProperties": {
+    "dryMass": 40.3787927,
+    "fuelMass": 0.7,
+    "maxFuelMass": 0.7,
+    "inertia": {
+      "x": 3.4863829959,
+      "y": 2.603448192,
+      "z": 2.2304643217
+    },
+    "name": "BILI GOAT",
+    "description": "BILI GOAT Drone",
+    "centerOfMass": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "model": {
+    "position": {
+      "x": -0.22,
+      "y": -0.3556,
+      "z": -0.3556
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "features": [
+      {
+        "id": 0,
+        "type": "translation",
+        "vector": {
+          "x": 0.375,
+          "y": -0.39,
+          "z": -0.21
+        }
+      },
+      {
+        "id": 1,
+        "type": "rotation",
+        "axis": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "angle": 270
+      }
+    ]
+  },
   "cameras": [
     {
-      "name": "Forward View",
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": 0, "y": 3.14159, "z": 0 },
-      "fov": 75
+      "id": 0,
+      "name": "Camera Left",
+      "position": {
+        "x": 0.3556,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "fov": 100
     },
     {
-      "name": "plus X Axis View",
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": 0, "y": -1.5708, "z": 0 },
-      "fov": 25
+      "id": 1,
+      "name": "Camera Right",
+      "position": {
+        "x": -0.3556,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 0
+      },
+      "fov": 100
+    },
+    {
+      "id": 2,
+      "name": "Camera Up",
+      "position": {
+        "x": 0,
+        "y": 0.3556,
+        "z": 0
+      },
+      "rotation": {
+        "x": 1.5707963267948966,
+        "y": 0,
+        "z": 0
+      },
+      "fov": 100
+    },
+    {
+      "id": 3,
+      "name": "Camera Down",
+      "position": {
+        "x": 0,
+        "y": -0.3556,
+        "z": 0
+      },
+      "rotation": {
+        "x": -1.5707963267948966,
+        "y": 0,
+        "z": 0
+      },
+      "fov": 100
+    },
+    {
+      "id": 6,
+      "name": "Camera Front",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0.175
+      },
+      "rotation": {
+        "x": 3.141592653589793,
+        "y": 0,
+        "z": 0
+      },
+      "fov": 100
+    },
+    {
+      "id": 7,
+      "name": "Camera Back",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -0.2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "fov": 100
     }
   ],
   "cmg": {
-    "cmg": {
-      "maxAngularMomentum": 20,
-      "maxTorque": 20
-    }
+    "cmgs": [
+      {
+        "id": 0,
+        "name": "CMG",
+        "maxAngularMomentum": 8,
+        "maxTorque": 7
+      }
+    ]
   },
-  "spacecraftProperties": {
-    "dryMass": 5,
-    "fuelMass": 5,
-    "maxFuelMass": 5,
-    "inertia": {
-      "x": 3,
-      "y": 3,
-      "z": 3
+  "lamps": [
+    {
+      "id": 0,
+      "name": "Light L",
+      "position": {
+        "x": 0.3556,
+        "y": 0.1,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
     },
-    "name": "Custom Spacecraft",
-    "description": "A custom spacecraft with specific properties"
-  },
-  "lamps": {
-    "lamps": [
-      {
-        "id": "white_z",
-        "position": { "x": 0, "y": 0, "z": 0.5 },
-        "rotation": { "x": 3.14159, "y": 0, "z": 0 },
-        "intensity": 1.0,
-        "angle": 0.7854,
-        "color": "#ffffff",
-        "distance": 20,
-        "penumbra": 0.2
+    {
+      "id": 1,
+      "name": "Light R",
+      "position": {
+        "x": -0.3556,
+        "y": 0.1,
+        "z": 0
       },
-      {
-        "id": "green_x",
-        "position": { "x": 0.5, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": -1.5708, "z": 0 },
-        "intensity": 1.0,
-        "angle": 0.7854,
-        "color": "#00ff00",
-        "distance": 20,
-        "penumbra": 0.2
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 0
       },
-      {
-        "id": "red_negx",
-        "position": { "x": -0.5, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 1.5708, "z": 0 },
-        "intensity": 1.0,
-        "angle": 0.7854,
-        "color": "#ff0000",
-        "distance": 20,
-        "penumbra": 0.2
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
+    },
+    {
+      "id": 2,
+      "name": "Light U",
+      "position": {
+        "x": 0,
+        "y": 0.3556,
+        "z": 0.1
       },
-      {
-        "id": "yellow_negz",
-        "position": { "x": 0, "y": 0, "z": -0.5 },
-        "rotation": { "x": 0, "y": 0, "z": 0 },
-        "intensity": 1.0,
-        "angle": 0.7854,
-        "color": "#ffff00",
-        "distance": 20,
-        "penumbra": 0.2
+      "rotation": {
+        "x": 1.5707963267948966,
+        "y": 0,
+        "z": 0
       },
-      {
-        "id": "blue_y",
-        "position": { "x": 0, "y": -0.5, "z": 0 },
-        "rotation": { "x": -1.5708, "y": 0, "z": 0 },
-        "intensity": 1.0,
-        "angle": 0.7854,
-        "color": "#0000ff",
-        "distance": 20,
-        "penumbra": 0.2
-      }
-    ]
-  },
-  "reactionwheels": {
-    "wheels": [
-      {
-        "name": "RW-X",
-        "orientation": { "x": 1, "y": 0, "z": 0 },
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "maxAngularMomentum": 15,
-        "maxTorque": 0.5
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
+    },
+    {
+      "id": 3,
+      "name": "Light D",
+      "position": {
+        "x": 0,
+        "y": -0.3556,
+        "z": 0.1
       },
-      {
-        "name": "RW-Y",
-        "orientation": { "x": 0, "y": 1, "z": 0 },
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "maxAngularMomentum": 15,
-        "maxTorque": 0.5
+      "rotation": {
+        "x": -1.5707963267948966,
+        "y": 0,
+        "z": 0
       },
-      {
-        "name": "RW-Z",
-        "orientation": { "x": 0, "y": 0, "z": 1 },
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "maxAngularMomentum": 15,
-        "maxTorque": 0.5
-      }
-    ]
-  },
-  "thrusters": {
-    "thrusters": [
-      { "position": [-0.3, 0.3, 0.5], "direction": [0, 0, -1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [0.3, -0.3, 0.5], "direction": [0, 0, -1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [0.3, 0.3, 0.5], "direction": [0, 0, -1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [-0.3, -0.3, 0.5], "direction": [0, 0, -1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [-0.3, -0.3, -0.5], "direction": [0, 0, 1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [0.3, 0.3, -0.5], "direction": [0, 0, 1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [0.3, -0.3, -0.5], "direction": [0, 0, 1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [-0.3, 0.3, -0.5], "direction": [0, 0, 1], "thrust": 0.8, "isp": 15.4 },
-      { "position": [0.5, -0.3, -0.3], "direction": [-1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.5, 0.3, 0.3], "direction": [-1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.5, 0.3, -0.3], "direction": [-1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.5, -0.3, 0.3], "direction": [-1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.5, -0.3, 0.3], "direction": [1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.5, 0.3, -0.3], "direction": [1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.5, 0.3, 0.3], "direction": [1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.5, -0.3, -0.3], "direction": [1, 0, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.3, 0.5, 0.3], "direction": [0, -1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.3, 0.5, -0.3], "direction": [0, -1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.3, 0.5, 0.3], "direction": [0, -1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.3, 0.5, -0.3], "direction": [0, -1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.3, -0.5, -0.3], "direction": [0, 1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.3, -0.5, 0.3], "direction": [0, 1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [0.3, -0.5, -0.3], "direction": [0, 1, 0], "thrust": 0.6, "isp": 15.4 },
-      { "position": [-0.3, -0.5, 0.3], "direction": [0, 1, 0], "thrust": 0.6, "isp": 15.4 }
-    ]
-  }
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
+    },
+    {
+      "id": 4,
+      "name": "Light F",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0.21
+      },
+      "rotation": {
+        "x": 0,
+        "y": 3.141592653589793,
+        "z": 0
+      },
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
+    },
+    {
+      "id": 5,
+      "name": "Light B",
+      "position": {
+        "x": 0,
+        "y": 0.1,
+        "z": -0.2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#ffffff",
+      "intensity": 1,
+      "distance": 20,
+      "angle": 1.0471975511965976,
+      "penumbra": 0.2,
+      "castShadow": false
+    }
+  ],
+  "reactionwheels": [],
+  "thrusters": [
+    {
+      "id": 0,
+      "name": "Thruster L",
+      "position": [
+        0.4,
+        0,
+        0
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "thrust": "0.5",
+      "isp": "70",
+      "keybind": [
+        "a"
+      ],
+      "autoBind": false
+    },
+    {
+      "id": 3,
+      "name": "Thruster U",
+      "position": [
+        0,
+        0.4,
+        0
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "thrust": "0.5",
+      "isp": "70",
+      "keybind": [
+        "q"
+      ],
+      "autoBind": true
+    },
+    {
+      "id": 8,
+      "name": "Thruster F",
+      "position": [
+        0,
+        0,
+        0.2
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "thrust": ".5",
+      "isp": "70",
+      "keybind": [
+        "s"
+      ],
+      "autoBind": true
+    },
+    {
+      "id": 9,
+      "name": "Thruster B",
+      "position": [
+        0,
+        0,
+        -0.2
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "thrust": ".5",
+      "isp": "70",
+      "keybind": [
+        "w"
+      ],
+      "autoBind": true
+    },
+    {
+      "id": 10,
+      "name": "Thruster R",
+      "position": [
+        -0.4,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "thrust": "0.5",
+      "isp": "70",
+      "keybind": [
+        "d"
+      ],
+      "autoBind": false
+    },
+    {
+      "id": 12,
+      "name": "Thruster D",
+      "position": [
+        0,
+        -0.4,
+        0
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "thrust": "0.5",
+      "isp": "70",
+      "keybind": [
+        "e"
+      ],
+      "autoBind": true
+    }
+  ]
 }
