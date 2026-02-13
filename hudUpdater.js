@@ -146,22 +146,22 @@ function updateUnifiedHUD(satBody, isPaused, cameraSystem, fineControlMode, isDo
   
   // Update position info
   if (uiElements.positionInfo) {
-    uiElements.positionInfo.textContent = `X: ${p.x.toFixed(10)} Y: ${p.y.toFixed(10)} Z: ${p.z.toFixed(10)}`;
+    uiElements.positionInfo.textContent = `X: ${p.x.toFixed(7)} Y: ${p.y.toFixed(7)} Z: ${p.z.toFixed(7)}`;
   }
   
   // Update velocity info
   if (uiElements.velocityInfo) {
-    uiElements.velocityInfo.textContent = `X: ${v.x.toFixed(10)} Y: ${v.y.toFixed(10)} Z: ${v.z.toFixed(10)}`;
+    uiElements.velocityInfo.textContent = `X: ${v.x.toFixed(7)} Y: ${v.y.toFixed(7)} Z: ${v.z.toFixed(7)}`;
   }
   
   // Update angular velocity info
   if (uiElements.angularVelocityInfo) {
-    uiElements.angularVelocityInfo.textContent = `X: ${av.x.toFixed(2)} Y: ${av.y.toFixed(2)} Z: ${av.z.toFixed(2)}`;
+    uiElements.angularVelocityInfo.textContent = `X: ${av.x.toFixed(7)} Y: ${av.y.toFixed(7)} Z: ${av.z.toFixed(7)}`;
   }
   
   // Update attitude info
   if (uiElements.attitudeInfo) {
-    uiElements.attitudeInfo.textContent = `Roll: ${rpy.roll.toFixed(1)}° Pitch: ${rpy.pitch.toFixed(1)}° Yaw: ${rpy.yaw.toFixed(1)}°`;
+    uiElements.attitudeInfo.textContent = `Roll: ${rpy.roll.toFixed(7)} ° Pitch: ${rpy.pitch.toFixed(7)} ° Yaw: ${rpy.yaw.toFixed(7)} °`;
   }
   
   // Update status info
@@ -407,6 +407,8 @@ export function updateUIText(elementId, text) {
     element.textContent = text;
   }
 }
+
+
 
 
 
