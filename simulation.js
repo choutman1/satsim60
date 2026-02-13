@@ -978,8 +978,9 @@ function createDockingPort(geometry) {
     let vel = velocityElement.textContent;
     let angrat = anglerateElement.textContent;
     let ang = angleElement.textContent;
+    let posdata = pos+vel+angrat+ang;
     const positionData = {
-      pos+vel+angrat+ang
+      posdata
     };
   
     // Create a blob and download the file
@@ -999,6 +1000,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
