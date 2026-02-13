@@ -1,3 +1,4 @@
+
 // File: hudUpdater.js
 
 import * as THREE from 'three';
@@ -145,7 +146,7 @@ function updateUnifiedHUD(satBody, isPaused, cameraSystem, fineControlMode, isDo
   
   // Update position info
   if (uiElements.positionInfo) {
-    uiElements.positionInfo.textContent = `X: ${p.x.toFixed(2)} Y: ${p.y.toFixed(2)} Z: ${p.z.toFixed(2)}`;
+    uiElements.positionInfo.textContent = `X: ${p.x.toFixed(10)} Y: ${p.y.toFixed(10)} Z: ${p.z.toFixed(10)}`;
   }
   
   // Update velocity info
@@ -307,7 +308,7 @@ function updateDockingInfo(isDocked, dockingStatus) {
   }
   
   // Update docking metrics
-  uiElements.dockDistance.textContent = dockingStatus.distance.toFixed(3);
+  uiElements.dockDistance.textContent = dockingStatus.distance.toFixed(10);
   uiElements.angularDiff.textContent = dockingStatus.angleDiff.toFixed(2);
   uiElements.dockingSpeed.textContent = dockingStatus.speed.toFixed(3);
   uiElements.dockingAngularSpeed.textContent = dockingStatus.angularSpeed.toFixed(3);
@@ -406,4 +407,6 @@ export function updateUIText(elementId, text) {
     element.textContent = text;
   }
 }
+
+
 
