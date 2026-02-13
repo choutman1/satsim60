@@ -835,7 +835,7 @@ function createDockingPort(geometry) {
         }
       });
       
-      world.step(1/60);
+      world.step(1/170);
     }
 
     if (getSpacecraftBody()) {
@@ -926,6 +926,8 @@ function createDockingPort(geometry) {
   const copyButton = document.getElementById('export-position-button');
   const positionElement = document.getElementById('position-info');
   const velocityElement = document.getElementById('velocity-info');
+  const anglerateElement = document.getElementById('angular-velocity-info');
+  const angleElement = document.getElementById('attitude-info');
   window.addEventListener('exportPosition', async  () => {
     if (!satBody) {
       console.error('Spacecraft body not available for export');
@@ -949,7 +951,7 @@ function createDockingPort(geometry) {
       dockingAngleThreshold: DOCKING_ANGLE_THRESHOLD
     };
     try {
-        await navigator.clipboard.writeText(positionElement.textContent+velocityElement.textContent);
+        await navigator.clipboard.writeText(positionElement.textContent+velocityElement.textContent+anglerateElement.textContent+angleElement.textContent);
         console.log('Text copied to clipboard successfully!');
         // Optional: Provide visual feedback to the user
         copyButton.textContent = 'Copied!';
@@ -1003,6 +1005,7 @@ function createDockingPort(geometry) {
   // });
   initializeDefaultSpacecraft();
 }
+
 
 
 
