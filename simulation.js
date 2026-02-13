@@ -974,9 +974,12 @@ function createDockingPort(geometry) {
       alert('Spacecraft not loaded yet');
       return;
     }
-  
+    let pos = positionElement.textContent;
+    let vel = velocityElement.textContent;
+    let angrat = anglerateElement.textContent;
+    let ang = angleElement.textContent;
     const positionData = {
-      pos: {positionElement.textContent+velocityElement.textContent+anglerateElement.textContent+angleElement.textContent};
+      pos+vel+angrat+ang
     };
   
     // Create a blob and download the file
@@ -996,6 +999,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
