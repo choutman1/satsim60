@@ -936,9 +936,9 @@ function createDockingPort(geometry) {
         "z": satBody.position.z
       },
       "velocity": {
-        "x": satBody.velcity.x,
-        "y": satBody.velcity.y,
-        "z": satBody.velcity.z
+        "x": satBody.velocity.x,
+        "y": satBody.velocity.y,
+        "z": satBody.velocity.z
       },
       "Angular Velocity": {
         "x": satBody.angularVelocity.x,
@@ -970,6 +970,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
