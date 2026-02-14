@@ -922,51 +922,6 @@ function createDockingPort(geometry) {
     camSys.handleResize();
   });
 
-  // // Export current position and orientation to JSON file
-  // const copyButton = document.getElementById('export-position-button');
-  // const positionElement = document.getElementById('position-info');
-  // const velocityElement = document.getElementById('velocity-info');
-  // const anglerateElement = document.getElementById('angular-velocity-info');
-  // const angleElement = document.getElementById('attitude-info');
-  // window.addEventListener('exportPosition', async  () => {
-  //   if (!satBody) {
-  //     console.error('Spacecraft body not available for export');
-  //     alert('Spacecraft not loaded yet');
-  //     return;
-  //   }
-
-  //   const positionData = {
-  //     position: {
-  //       x: satBody.position.x,
-  //       y: satBody.position.y,
-  //       z: satBody.position.z
-  //     },
-  //     orientation: {
-  //       x: satBody.quaternion.x,
-  //       y: satBody.quaternion.y,
-  //       z: satBody.quaternion.z,
-  //       w: satBody.quaternion.w
-  //     },
-  //     dockingBoxSize: DOCKING_BOX_SIZE,
-  //     dockingAngleThreshold: DOCKING_ANGLE_THRESHOLD
-  //   };
-  //   try {
-  //       await navigator.clipboard.writeText(positionElement.textContent+velocityElement.textContent+anglerateElement.textContent+angleElement.textContent);
-  //       console.log('Text copied to clipboard successfully!');
-  //       // Optional: Provide visual feedback to the user
-  //       copyButton.textContent = 'Copied!';
-  //       setTimeout(() => {
-  //           copyButton.textContent = 'Export Current Position & Orientation';
-  //       }, 1500);
-  //   } catch (err) {
-  //       console.error('Failed to copy text: ', err);
-  //   }
-  //   console.log('Exported position/orientation:', positionData);
-  // });
-  const positionElement = document.getElementById('position-info');
-  const velocityElement = document.getElementById('velocity-info');
-  const anglerateElement = document.getElementById('angular-velocity-info');
-  const angleElement = document.getElementById('attitude-info');
   // Export current position and orientation to JSON file
   window.addEventListener('exportPosition', () => {
     if (!satBody) {
@@ -974,13 +929,28 @@ function createDockingPort(geometry) {
       alert('Spacecraft not loaded yet');
       return;
     }
-    let pos = positionElement.textContent;
-    let vel = velocityElement.textContent;
-    let angrat = anglerateElement.textContent;
-    let ang = angleElement.textContent;
-    let posdata = pos+vel+angrat+ang;
     const positionData = {
-      posdata
+      "position": {
+        "x": satBody.position.x,
+        "y": satBody.position.y,
+        "z": satBody.position.z
+      },
+      "velocity": {
+        "x": satBody.velcity.x,
+        "y": satBody.velcity.y,
+        "z": satBody.velcity.z
+      },
+      "Angular Velocity": {
+        "x": satBody.angularVelocity.x,
+        "y": satBody.angularVelocity.y,
+        "z": satBody.angularVelocity.z
+      },
+      "quaternion": {
+        "x": satBody.quaternion.x,
+        "y": satBody.quaternion.y,
+        "z": satBody.quaternion.z,
+        "w": satBody.quaternion.w
+      },
     };
   
     // Create a blob and download the file
@@ -1000,6 +970,7 @@ function createDockingPort(geometry) {
   });
   initializeDefaultSpacecraft();
 }
+
 
 
 
