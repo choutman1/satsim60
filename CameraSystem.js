@@ -1,3 +1,4 @@
+
 //CameraSystem.js
 // Import necessary Three.js modules
 import * as THREE from 'three';
@@ -298,11 +299,14 @@ export class CameraSystem {
             if (cameraIndex < this.firstPersonCameras.length) {
                 const currentCamera = this.firstPersonCameras[cameraIndex];
                 
-                // Set camera position relative to target (convert strings to numbers)
+                // Adjust local position by centerOfMass offset
+                const centerOfMassOffset = this.targetObject.userData?.centerOfMassOffset || {x: 0, y: 0, z: 0};
+                
+                // Set camera position relative to target (convert strings to numbers, adjust for centerOfMass)
                 const localPosition = new THREE.Vector3(
-                    parseFloat(currentCamera.position.x),
-                    parseFloat(currentCamera.position.y),
-                    parseFloat(currentCamera.position.z)
+                    parseFloat(currentCamera.position.x) - (centerOfMassOffset.x || 0),
+                    parseFloat(currentCamera.position.y) - (centerOfMassOffset.y || 0),
+                    parseFloat(currentCamera.position.z) - (centerOfMassOffset.z || 0)
                 );
                 const worldPosition = localPosition.applyQuaternion(this.targetObject.quaternion);
                 this.camera.position.copy(this.targetObject.position).add(worldPosition);
