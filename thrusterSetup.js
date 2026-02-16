@@ -16,7 +16,7 @@ const TRANSLATION_TOLERANCE = Math.cos(TRANSLATION_ANGLE_DEGREES * Math.PI / 180
  * @param {function} createThrusterVisual - A function that creates visual representation of a single thruster.
  * @returns {Promise<Array<object>>} A promise that resolves to an array of thruster objects.
  */
-export default async function initializeThrusters(configUrl, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual) {
+export default async function initializeThrusters(configUrl, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual, centerOfMass = {x: 0, y: 0, z: 0}) {
   try {
     const response = await fetch(configUrl);
     if (!response.ok) {
@@ -24,7 +24,7 @@ export default async function initializeThrusters(configUrl, CANNON, satMesh, ke
     }
     const config = await response.json();
     
-    return processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual);
+    return processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual, centerOfMass);
   } catch (error) {
     console.error("Failed to initialize thrusters:", error);
     return []; // Return an empty array on failure
@@ -43,9 +43,9 @@ export default async function initializeThrusters(configUrl, CANNON, satMesh, ke
  * @param {function} createThrusterVisual - A function that creates visual representation of a single thruster.
  * @returns {Promise<Array<object>>} A promise that resolves to an array of thruster objects.
  */
-export async function initializeThrustersWithConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual) {
+export async function initializeThrustersWithConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual, centerOfMass = {x: 0, y: 0, z: 0}) {
   try {
-    return processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual);
+    return processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual, centerOfMass);
   } catch (error) {
     console.error("Failed to initialize thrusters with config:", error);
     return []; // Return an empty array on failure
@@ -61,11 +61,17 @@ export async function initializeThrustersWithConfig(config, CANNON, satMesh, key
  * @param {object3D} satMesh - The Three.js (or other) mesh of the satellite to which thrusters will be added.
  * @param {object} keyToThrusterIndices - An object that will be populated with key-to-thruster mappings.
  * @param {function} createThrusterVisual - A function that creates visual representation of a single thruster.
+ * @param {object} centerOfMass - The center of mass offset {x, y, z} to apply to thruster positions.
  * @returns {Array<object>} An array of thruster objects.
  */
-function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual) {
+function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, createThrusterVisual, centerOfMass = {x: 0, y: 0, z: 0}) {
   const thrusters = config.thrusters.map((t, i) => {
-    const pos = new CANNON.Vec3(t.position[0], t.position[1], t.position[2]);
+    // Adjust position: original - centerOfMass (relative to center of mass)
+    const pos = new CANNON.Vec3(
+      t.position[0] - (centerOfMass.x || 0),
+      t.position[1] - (centerOfMass.y || 0),
+      t.position[2] - (centerOfMass.z || 0)
+    );
     const dir = new CANNON.Vec3(t.direction[0], t.direction[1], t.direction[2]).unit();
     const { group: visual, material } = createThrusterVisual(pos, dir);
     satMesh.add(visual);
@@ -78,20 +84,20 @@ function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, cr
     let thrust = parseFloat(t.thrust);
     if (isNaN(thrust) || thrust <= 0) {
       console.warn(`Invalid thrust value for thruster "${t.name || i}": ${t.thrust}. Defaulting to 50N.`);
-      thrust = 0.5;
+      thrust = 50;
     }
 
     // Sanitize ISP value
     let isp = parseFloat(t.isp);
     if (isNaN(isp) || isp <= 0) {
       console.warn(`Invalid ISP value for thruster "${t.name || i}": ${t.isp}. Defaulting to 300s.`);
-      isp = 70;
+      isp = 300;
     }
     // --- END SANITIZATION ---
 
     // ---------- KEYBIND MAPPING ----------
     // Check if autoBind is enabled or use custom keybinds from JSON
-    const autoBind = t.autoBind === true; // Default to false if undefined
+    const autoBind = t.autoBind !== false; // Default to true unless explicitly false
     const customKeybinds = Array.isArray(t.keybind) ? t.keybind : [];
 
     if (autoBind) {
@@ -140,4 +146,3 @@ function processThrusterConfig(config, CANNON, satMesh, keyToThrusterIndices, cr
 
   return thrusters;
 }
-
