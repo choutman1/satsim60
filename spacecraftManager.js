@@ -1,8 +1,14 @@
+
     
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+// Configuration flag for centering the spacecraft model
+// Set to true to center the model (move its center of mass to origin)
+// Set to false to use the model as-is (recommended for models exported from editor)
+const CENTER_SPACECRAFT_MODEL = false;
 
 // Spacecraft-related variables
 let spacecraftGroup = null;
@@ -84,8 +90,8 @@ function processLoadedModel(model, rotation, centroidModel, properties, scene, w
   const center = box.getCenter(new THREE.Vector3());
   let collisionBoxOffset = new THREE.Vector3(0, 0, 0);
 
-  // 3. Center the model if centroid option is checked
-  if (centroidModel) {
+  // 3. Center the model if centering is enabled (use flag at top of file)
+  if (CENTER_SPACECRAFT_MODEL) {
     model.position.sub(center);
   } else {
     collisionBoxOffset.copy(center);
@@ -116,8 +122,27 @@ function processLoadedModel(model, rotation, centroidModel, properties, scene, w
   
   spacecraftBody = new CANNON.Body(bodyOptions);
   
-  // Add the shape with the calculated offset
-  spacecraftBody.addShape(shape, new CANNON.Vec3(collisionBoxOffset.x, collisionBoxOffset.y, collisionBoxOffset.z));
+  // Extract centerOfMass from properties if provided
+  const centerOfMassOffset = properties.centerOfMass 
+    ? new CANNON.Vec3(
+        properties.centerOfMass.x || 0,
+        properties.centerOfMass.y || 0,
+        properties.centerOfMass.z || 0
+      )
+    : new CANNON.Vec3(0, 0, 0);
+  
+  // Calculate final shape offset: centroid offset + centerOfMass offset
+  const finalShapeOffset = new CANNON.Vec3(
+    collisionBoxOffset.x + centerOfMassOffset.x,
+    collisionBoxOffset.y + centerOfMassOffset.y,
+    collisionBoxOffset.z + centerOfMassOffset.z
+  );
+  
+  // Add the shape with the combined offset
+  spacecraftBody.addShape(shape, finalShapeOffset);
+  
+  // Store centerOfMass for other systems to use
+  spacecraftBody.centerOfMassOffset = centerOfMassOffset;
   
   // --- CORRECT INERTIA FIX ---
   // If custom inertia was provided, apply it using the correct Cannon-ES approach
