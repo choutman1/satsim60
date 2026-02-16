@@ -9,6 +9,7 @@ export class LampManager {
     this.lampHelpers = [];
     this.lampsVisible = true;
     this.helpersVisible = false;
+    this.centerOfMassOffset = {x: 0, y: 0, z: 0};
 
     // Create temporary objects for calculations to avoid garbage collection
     this._tempMatrix = new THREE.Matrix4();
@@ -16,6 +17,14 @@ export class LampManager {
     this._tempDir = new THREE.Vector3();
     this._lampLocalMatrix = new THREE.Matrix4();
     this._combinedMatrix = new THREE.Matrix4();
+  }
+  
+  setCenterOfMassOffset(offset) {
+    this.centerOfMassOffset = {
+      x: offset.x || 0,
+      y: offset.y || 0,
+      z: offset.z || 0
+    };
   }
 
   toggleHelpers() {
@@ -123,11 +132,11 @@ export class LampManager {
       const helper = this.lampHelpers[index];
 
       // --- 1. Calculate Light's World Position ---
-      // Start with lamp's local position from config (convert strings to numbers)
+      // Start with lamp's local position from config (convert strings to numbers), adjust for centerOfMass
       this._tempPos.set(
-        parseFloat(config.position.x),
-        parseFloat(config.position.y),
-        parseFloat(config.position.z)
+        parseFloat(config.position.x) - (this.centerOfMassOffset.x || 0),
+        parseFloat(config.position.y) - (this.centerOfMassOffset.y || 0),
+        parseFloat(config.position.z) - (this.centerOfMassOffset.z || 0)
       );
       // Apply spacecraft's world transform to get final world position
       this._tempPos.applyMatrix4(this._tempMatrix);
