@@ -1,3 +1,4 @@
+
 // attitudeControl.js
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
@@ -12,6 +13,22 @@ class AttitudeControlSystem {
         this.cmgs = [];
         this.loaded = false;
         this.desaturationActive = false;
+        this.centerOfMassOffset = {x: 0, y: 0, z: 0};
+    }
+
+    // Method to set center of mass offset and update existing reaction wheels
+    setCenterOfMassOffset(offset) {
+        this.centerOfMassOffset = {
+            x: offset.x || 0,
+            y: offset.y || 0,
+            z: offset.z || 0
+        };
+        // Update existing reaction wheels positions
+        this.reactionWheels.forEach(wheel => {
+            wheel.position.x -= this.centerOfMassOffset.x;
+            wheel.position.y -= this.centerOfMassOffset.y;
+            wheel.position.z -= this.centerOfMassOffset.z;
+        });
     }
 
     // Dummy method to maintain compatibility with existing code
@@ -84,9 +101,9 @@ class AttitudeControlSystem {
                 name: wheelConfig.name || `RW${index}`,
                 orientation: normalizedOrientation,
                 position: new CANNON.Vec3(
-                    parseFloat(wheelConfig.position?.x) ?? 0,
-                    parseFloat(wheelConfig.position?.y) ?? 0,
-                    parseFloat(wheelConfig.position?.z) ?? 0
+                    parseFloat(wheelConfig.position?.x ?? 0) - (this.centerOfMassOffset?.x || 0),
+                    parseFloat(wheelConfig.position?.y ?? 0) - (this.centerOfMassOffset?.y || 0),
+                    parseFloat(wheelConfig.position?.z ?? 0) - (this.centerOfMassOffset?.z || 0)
                 ),
                 maxAngularMomentum: parseFloat(wheelConfig.maxAngularMomentum) ?? 10,
                 maxTorque: parseFloat(wheelConfig.maxTorque) ?? 0.5,
